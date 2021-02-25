@@ -1,0 +1,94 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".MainActivity">
+
+    <TextView
+        android:id="@+id/textView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="JOSIM"
+        android:textSize="32sp"
+        app:layout_constraintBottom_toTopOf="@+id/editText"
+        app:layout_constraintHorizontal_bias="0.498"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.036" />
+
+    <Button
+        android:id="@+id/searchButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="검색"
+        android:background="@drawable/search"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.871"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.124" />
+
+    <EditText
+        android:id="@+id/editText"
+        android:layout_width="240dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="15dp"
+        android:ems="15"
+        android:inputType="textPersonName"
+        android:hint="기업명을 입력해주세요"
+        android:background="@drawable/searchingbar"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.149"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.128" />
+
+    <TextView
+        android:id="@+id/result_text"
+        android:layout_width="362dp"
+        android:layout_height="548dp"
+        android:scrollbars="vertical"
+        android:text=""
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.489"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/editText"
+        app:layout_constraintVertical_bias="0.4" />
+
+    <RadioGroup
+        android:id="@+id/radio_group"
+        android:layout_width="0dp"
+        android:layout_height="96dp"
+        app:layout_constraintBottom_toTopOf="@+id/editText"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <RadioButton
+            android:id="@+id/yh_radioButton"
+            android:layout_width="56dp"
+            android:layout_height="32dp"
+            android:text="YH" />
+
+        <RadioButton
+            android:id="@+id/sh_radioButton"
+            android:layout_width="56dp"
+            android:layout_height="32dp"
+            android:text="SH" />
+
+        <RadioButton
+            android:id="@+id/dw_radioButton"
+            android:layout_width="56dp"
+            android:layout_height="32dp"
+            android:text="DW" />
+    </RadioGroup>
+
+
+    ㅡ
+</androidx.constraintlayout.widget.ConstraintLayout>
