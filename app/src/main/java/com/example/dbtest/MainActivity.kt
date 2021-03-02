@@ -67,89 +67,28 @@ class MainActivity : AppCompatActivity() {
 //            DB에 검색 기록 저장
             db.todoDao().insert(Todo(editText.text.toString()))
 
-            var searchFlag : Boolean = false
-            var corp_code = ""
-            var result = ""
+            val corp_name = editText.text.toString()
 
-            val cal = Calendar.getInstance()
-            val base_year = cal.get(Calendar.YEAR)
-            val base_month = cal.get(Calendar.MONTH)
-            val base_day = cal.get(Calendar.DATE)
+            result_text.append(editText.text.toString() + "\n")
 
-            val reprt_year = arrayOf(base_year-3,base_year-2)
-            val reprt_codes = arrayOf("11013","11012","11014","11011")
+            RetrofitManager.instance.serachCorpData(corp_name = corp_name, completion = { responseState, responseBody ->
+                when (responseState) {
+                    RESPONSE_STATE.OKAY -> {
+                        Log.d(TAG, "api 호출 성공 : $responseBody")
 
-            for (i in entries){
-                val split_with_comma = i.toString().split(",")
-                val split_with_equal = split_with_comma[1].split("=")
-                val corp_name = split_with_equal[1].replace(")","")
-                if (corp_name == editText.text.toString()){
-                    corp_code = split_with_comma[0].replace(("[^0-9]").toRegex(), "")
-//                    result_text.text = corp_code
-                    searchFlag = true
-                    break
-                }
-            }
-            if (searchFlag == false){
-                result_text.text = "찾으시는 기업의 코드가 존재하지 않습니다. 다시 입력해주셔요."
-            }
-            else{
-                result_text.setText(API.CRTFC_KEY + "\n")
-                result_text.append(editText.text.toString() + "\n")
-                RetrofitManager.instance.serachCorpClass(corp_code = corp_code, bgn_de= (base_year-2).toString() + "0101", last_reprt_at ="N", completion = { responseState, responseBody ->
+                        try{
+                            result_text.text = responseBody
 
-                    when (responseState) {
-                        RESPONSE_STATE.OKAY -> {
-                            Log.d(TAG, "api 호출 성공 : $responseBody")
-
-                            var a = GetCorpClass(responseBody)
-                            a.findcorpclass()
-
-                            result_text.append ("법인 구분 : " + a.corp_cls + "\n")
-
-                        }
-                        RESPONSE_STATE.FAIL -> {
-                            Toast.makeText(this, "api 호출 에러입니다.", Toast.LENGTH_SHORT).show()
-                            Log.d(TAG, "api 호출 실패 : $responseBody")
+                        }catch (e: JSONException) {
+                            e.printStackTrace()
                         }
                     }
-                })
-
-                for (year in reprt_year){
-                    for (report_code in reprt_codes){
-                        RetrofitManager.instance.serachCorpData(corp_code = corp_code, bsns_year= year.toString(), reprt_code =report_code, completion = { responseState, responseBody ->
-                            when (responseState) {
-                                RESPONSE_STATE.OKAY -> {
-                                    Log.d(TAG, "api 호출 성공 : $responseBody")
-
-                                    try{
-                                        var a = Preprocessing(corp_code, report_code, responseBody)
-                                        a.calcdata()
-
-                                        result_text.append("보고서 연도 : " + year.toString() + "\n")
-                                        result_text.append("보고서 코드 : " + report_code + "\n")
-                                        result_text.append("매출 : " + a.sales + "\n")
-                                        result_text.append("법인세차감전 순이익 : " + a.net_income + "\n")
-                                        result_text.append("자본금 : " + a.capital + "\n")
-                                        result_text.append("자산총계 : " + a.total_assets + "\n")
-                                        result_text.append("자본총계 : "  + a.total_ownership_interest + "\n")
-                                        result_text.append("영업이익 : " + a.business_profit + "\n")
-                                        result_text.append("\n")
-
-                                    }catch (e: JSONException) {
-                                        e.printStackTrace()
-                                    }
-                                }
-                                RESPONSE_STATE.FAIL -> {
-                                    Toast.makeText(this, "api 호출 에러입니다.", Toast.LENGTH_SHORT).show()
-                                    Log.d(TAG, "api 호출 실패 : $responseBody")
-                                }
-                            }
-                        })
+                    RESPONSE_STATE.FAIL -> {
+                        Toast.makeText(this, "api 호출 에러입니다.", Toast.LENGTH_SHORT).show()
+                        Log.d(TAG, "api 호출 실패 : $responseBody")
                     }
                 }
-            }
-
+            })
         }
     }
 }

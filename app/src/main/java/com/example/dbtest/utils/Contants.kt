@@ -20,8 +20,5 @@ object API {
     const val SH_CRTFC_KEY = "c0f14263a3fabda238ca64a9832b6cbb27cd24f6"
     var CRTFC_KEY = SH_CRTFC_KEY
 
-    const val BASE_URL : String = "https://opendart.fss.or.kr/api/"
-
-    const val SEARCH_CORP_CLASS : String = "list.json"
-    const val SEARCH_CORP_DATA : String = "fnlttSinglAcnt.json"
+    const val BASE_URL : String = "http://teamsemi.iptime.org:5000"
 }
