@@ -71,7 +71,7 @@ class MainActivity : AppCompatActivity() {
 
             result_text.append(editText.text.toString() + "\n")
 
-            RetrofitManager.instance.serachCorpData(corp_name = corp_name, completion = { responseState, responseBody ->
+            RetrofitManager.instance.searchCorpData(corp_name = corp_name, completion = { responseState, responseBody ->
                 when (responseState) {
                     RESPONSE_STATE.OKAY -> {
                         Log.d(TAG, "api 호출 성공 : $responseBody")

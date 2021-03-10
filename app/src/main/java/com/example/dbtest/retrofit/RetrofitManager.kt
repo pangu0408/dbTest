@@ -18,7 +18,7 @@ class RetrofitManager {
         }
     private val iRetrofit : IRetrofit? = RetrofitClient.getClient(API.BASE_URL)?.create(IRetrofit::class.java)
 
-    fun serachCorpData(corp_name : String?, completion : (RESPONSE_STATE, String) -> Unit){
+    fun searchCorpData(corp_name : String?, completion : (RESPONSE_STATE, String) -> Unit){
 
         val corp_name_new : String = corp_name ?: ""
 
